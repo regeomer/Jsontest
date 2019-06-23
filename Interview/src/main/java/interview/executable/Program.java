@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URISyntaxException;
+import java.net.URL;
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.xml.DOMConfigurator;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -33,8 +35,12 @@ public class Program {
 	private static void jarRunnable() throws JsonGenerationException, JsonMappingException, FileNotFoundException,
 			IOException, InterruptedException, URISyntaxException {
 		File file = new File(Program.class.getClassLoader().getResource("log4j2.xml").getFile());
-		System.out.println(file.getPath());
-		DOMConfigurator.configure(file.getPath());
+		URL inputUrl = Program.class.getResource("/log4j2.xml");
+		File dest = new File("C:\\temp\\log4j2.xml");
+		dest.deleteOnExit();
+		FileUtils.copyURLToFile(inputUrl, dest);
+		System.out.println(dest.getPath());
+		DOMConfigurator.configure(dest.getPath());
 		CustomerData customer = new CustomerData("Omer", "Regev", 25, " ", " beer sheva ", 10021, "mobile",
 				"+972- 547670102");
 		ObjectMapper mapper = new ObjectMapper();
