@@ -39,7 +39,6 @@ public class Program {
 		File dest = new File("C:\\temp\\log4j2.xml");
 		dest.deleteOnExit();
 		FileUtils.copyURLToFile(inputUrl, dest);
-		System.out.println(dest.getPath());
 		DOMConfigurator.configure(dest.getPath());
 		CustomerData customer = new CustomerData("Omer", "Regev", 25, " ", " beer sheva ", 10021, "mobile",
 				"+972- 547670102");
